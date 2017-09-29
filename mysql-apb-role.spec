@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.0.0
+Version:	1.0.1
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
@@ -32,6 +32,9 @@ mv roles %{buildroot}/opt/ansible/roles
 /opt/ansible/roles
 
 %changelog
+* Fri Sep 29 2017 David Zager <david.j.zager@gmail.com> 1.0.1-1
+- new package built with tito
+
 * Thu Sep 28 2017 David Zager <dzager@redhat.com> 1.0.0-1
 - new package built with tito
 
