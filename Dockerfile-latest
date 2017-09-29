@@ -34,6 +34,6 @@ aXMgcGxhbiBwcm92aWRlcyBhIHNpbmdsZSBub24tSEEgTXlTUUwgc2VydmVyIHdpdGggMTAgR2lC\
 IG9mIHBlcnNpc3RlbnQgc3RvcmFnZQogICAgICBjb3N0OiAkNS45OSBtb250aGx5CiAgICBwYXJh\
 bWV0ZXJzOiAqX3BhcmFtcwo="
 
-COPY playbooks /opt/apb/actions
-COPY roles /opt/ansible/roles
+RUN yum -y install mysql-apb-role && yum clean all
+
 USER apb
