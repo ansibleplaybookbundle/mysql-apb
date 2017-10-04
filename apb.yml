@@ -29,7 +29,6 @@ _params: &_params
 
 version: 1.0
 name: rhscl-mysql-apb
-image: ansibleplaybookbundle/rhscl-mysql-apb
 description: "Software Collections MySQL APB"
 bindable: true
 async: optional
