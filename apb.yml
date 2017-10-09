@@ -40,7 +40,7 @@ metadata:
   longDescription: "An Ansible Playbook Bundle (APB) that deploys MySQL"
   console.openshift.io/iconClass: icon-mysql-database
   documentationUrl: "https://github.com/sclorg/mysql-container/"
-  dependencies: ['centos/mysql-57-centos7']
+  dependencies: ['rhscl/mysql-57-rhel7']
   providerDisplayName: "Red Hat, Inc."
 plans:
   - name: dev
