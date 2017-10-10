@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.0.3
+Version:	1.0.4
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
@@ -32,6 +32,11 @@ mv roles %{buildroot}/opt/ansible/roles
 /opt/ansible/roles
 
 %changelog
+* Tue Oct 10 2017 Jason Montleon <jmontleo@redhat.com> 1.0.4-1
+- Update dockerfiles (david.j.zager@gmail.com)
+- Bug 1500364 - Update apb.yml with all dependent images
+  (david.j.zager@gmail.com)
+
 * Mon Oct 09 2017 Jason Montleon <jmontleo@redhat.com> 1.0.3-1
 - Updated mysql image to use rhscl instead of centos (dymurray@redhat.com)
 - Bug 1498571 - Remove image from APB (david.j.zager@gmail.com)
