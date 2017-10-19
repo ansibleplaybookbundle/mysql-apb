@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.0.4
+Version:	1.0.5
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
@@ -32,6 +32,9 @@ mv roles %{buildroot}/opt/ansible/roles
 /opt/ansible/roles
 
 %changelog
+* Thu Oct 19 2017 David Zager <david.j.zager@gmail.com> 1.0.5-1
+- Bug 1503523 - Add asb module to deprovision yaml (david.j.zager@gmail.com)
+
 * Tue Oct 10 2017 Jason Montleon <jmontleo@redhat.com> 1.0.4-1
 - Update dockerfiles (david.j.zager@gmail.com)
 - Bug 1500364 - Update apb.yml with all dependent images
