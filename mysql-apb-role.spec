@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.0.5
+Version:	1.0.6
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
@@ -32,6 +32,11 @@ mv roles %{buildroot}/opt/ansible/roles
 /opt/ansible/roles
 
 %changelog
+* Mon Oct 30 2017 Jason Montleon <jmontleo@redhat.com> 1.0.6-1
+- Bug 1507321 - fixed binding parameters to work with mediawiki. Using the
+  generic fields also allows applications to switch between different
+  databases. (cchase@redhat.com)
+
 * Thu Oct 19 2017 David Zager <david.j.zager@gmail.com> 1.0.5-1
 - Bug 1503523 - Add asb module to deprovision yaml (david.j.zager@gmail.com)
 
