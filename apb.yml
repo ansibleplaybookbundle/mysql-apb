@@ -26,6 +26,7 @@ _params: &_params
     description: Password to connect to MySQL (generated if blank)
     type: string
     required: false
+    display_type: password
 
 version: 1.0
 name: rhscl-mysql-apb
