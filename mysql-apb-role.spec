@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.0.6
+Version:	1.0.7
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
@@ -32,6 +32,10 @@ mv roles %{buildroot}/opt/ansible/roles
 /opt/ansible/roles
 
 %changelog
+* Fri Nov 03 2017 Jason Montleon <jmontleo@redhat.com> 1.0.7-1
+- Bug 1508994 - Hide password with display_type: password (cchase@redhat.com)
+- Bug 1508278 - Use include_tasks instead of include (cchase@redhat.com)
+
 * Mon Oct 30 2017 Jason Montleon <jmontleo@redhat.com> 1.0.6-1
 - Bug 1507321 - fixed binding parameters to work with mediawiki. Using the
   generic fields also allows applications to switch between different
