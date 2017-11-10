@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.0.10
+Version:	1.1.0
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
