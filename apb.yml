@@ -29,7 +29,7 @@ _params: &_params
     display_type: password
 
 version: 1.0
-name: rhscl-mysql-apb
+name: mysql-apb
 description: "Software Collections MySQL APB"
 bindable: true
 async: optional
