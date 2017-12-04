@@ -1,4 +1,4 @@
-rhscl-mysql-apb
+mysql-apb
 ===============
 
 An Ansible Playbook Bundle (APB) to deploy [MySQL](https://www.mysql.com).
@@ -44,7 +44,7 @@ With that you can:
     docker run -e "OPENSHIFT_TARGET=$openshift_url" \
                -e "OPENSHIFT_TOKEN=$token" \
                -e "namespace=$namespace" \
-               ansibleplaybookbundle/rhscl-mysql-apb provision
+               ansibleplaybookbundle/mysql-apb provision
 
 You can pass additional parameters to `ansible-playbook` by adding them at the end; for example, you can request more verbose output with one or more `-v` and pass additional variables with `--extra-vars`.
 

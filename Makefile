@@ -1,6 +1,6 @@
 CONTEXT = ansibleplaybookbundle
 VERSION = v0.1
-IMAGE_NAME = rhscl-mysql-apb
+IMAGE_NAME = mysql-apb
 TARGET = centos7
 REGISTRY = docker-registry.default.svc.cluster.local
 OC_USER = developer
