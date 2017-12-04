@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.1.0
+Version:	1.1.1
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
@@ -32,6 +32,11 @@ mv roles %{buildroot}/opt/ansible/roles
 /opt/ansible/roles
 
 %changelog
+* Mon Dec 04 2017 Jason Montleon <jmontleo@redhat.com> 1.1.1-1
+- updates for repo and container name change (jmontleo@redhat.com)
+- update tags for FROM statement in Dockerfiles (jmontleo@redhat.com)
+- bumprelease (jesusr@redhat.com)
+
 * Tue Nov 07 2017 Jason Montleon <jmontleo@redhat.com> 1.0.10-1
 - Bug 1510599 - use service name for binding DB_HOST instead of cluster IP
   (cchase@redhat.com)
