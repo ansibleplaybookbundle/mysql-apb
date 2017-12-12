@@ -1,11 +1,11 @@
 ---
 - name: set volume claim state to {{ state }}
   k8s_v1_persistent_volume_claim:
-    name: "{{ service_name }}"
+    name: "{{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }}"
     namespace: "{{ namespace }}"
     labels:
       app: rhscl-mysql-apb
-      service: "{{ service_name }}"
+      service: "{{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }}"
     access_modes:
       - ReadWriteOnce
     resources_requests:
@@ -14,18 +14,18 @@
 
 - name: set MySQL deployment using persistent storage to {{ state }}
   openshift_v1_deployment_config:
-    name: "{{ service_name }}"
+    name: "{{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }}"
     namespace: "{{ namespace }}"
     labels:
       app: rhscl-mysql-apb
-      service: "{{ service_name }}"
+      service: "{{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }}"
     replicas: 1
     selector:
       app: rhscl-mysql-apb
-      service: "{{ service_name }}"
+      service: "{{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }}"
     spec_template_metadata_labels:
       app: rhscl-mysql-apb
-      service: "{{ service_name }}"
+      service: "{{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }}"
     containers:
     - name: mysql
       image: "{{ image }}"
@@ -42,7 +42,7 @@
         container_port: 3306
       liveness_probe:
         timeout_seconds: 1
-        inital_delay_seconds: 30
+        initial_delay_seconds: 30
         tcp_socket:
           port: 3306
       readiness_probe:
@@ -60,7 +60,7 @@
     volumes:
     - name: mysql-data
       persistent_volume_claim:
-        claim_name: "{{ service_name }}"
+        claim_name: "{{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }}"
     triggers:
     - type: ConfigChange
     state: "{{ state }}"
