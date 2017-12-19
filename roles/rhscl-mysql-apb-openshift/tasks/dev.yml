@@ -1,18 +1,18 @@
 ---
 - name: set MySQL deployment with ephemeral storage to {{ state }}
   openshift_v1_deployment_config:
-    name: "{{ service_name }}"
+    name: "{{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }}"
     namespace: "{{ namespace }}"
     labels:
       app: rhscl-mysql-apb
-      service: "{{ service_name }}"
+      service: "{{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }}"
     replicas: 1
     selector:
       app: rhscl-mysql-apb
-      service: "{{ service_name }}"
+      service: "{{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }}"
     spec_template_metadata_labels:
       app: rhscl-mysql-apb
-      service: "{{ service_name }}"
+      service: "{{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }}"
     containers:
     - name: mysql
       image: "{{ image }}"

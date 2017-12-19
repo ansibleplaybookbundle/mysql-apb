@@ -1,9 +1,19 @@
 ---
-- include_tasks: dev.yml
-  when: _apb_plan_id == "dev"
+- block:
+  - name: Find pod we need to update
+    shell: oc get pods -n {{ namespace }} -l app=rhscl-mysql-apb -o custom-columns=name:.metadata.name --no-headers
+    register: oldpod
 
-- include_tasks: prod.yml
-  when: _apb_plan_id == "prod"
+  - name: Find dc we will clean up
+    shell: oc get dc -n {{ namespace }} -l app=rhscl-mysql-apb -o custom-columns=name:.metadata.name --no-headers
+    register: olddc
+
+  - name: Backup source database
+    shell:  oc exec -n {{ namespace }} {{ oldpod.stdout }} -- /bin/bash -c "mysqldump -h 127.0.0.1 -u {{ mysql_user }} -p{{ mysql_password }} {{ mysql_database }} > /tmp/db.dump"
+
+  - name: Copy over db backup
+    shell: oc cp -n {{ namespace }} {{ oldpod.stdout }}:/tmp/db.dump /tmp/db.dump
+  when: update is defined
 
 - name: Set {{ service_name }} service state to {{ state }}
   k8s_v1_service:
@@ -14,13 +24,57 @@
       service: "{{ service_name }}"
     selector:
       app: rhscl-mysql-apb
-      service: "{{ service_name }}"
+      service: "{{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }}"
     ports:
     - name: mysql
       port: 3306
       target_port: 3306
     state: "{{ state }}"
   register: mysql_service
+
+- include_tasks: dev.yml
+  when: _apb_plan_id == "dev"
+
+- include_tasks: prod.yml
+  when: _apb_plan_id == "prod"
+
+- block:
+  - name: Wait for mysql to come up
+    wait_for:
+      port: 3306
+      host: "{{ mysql_service.service.spec.cluster_ip }}"
+      timeout: 300
+
+  - name: Find pod we need to restore
+    shell: oc get pods -n {{ namespace }} --show-all=false -l service={{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }} -o custom-columns=name:.metadata.name --no-headers
+    register: newpod
+
+  - name: Copy over db backup
+    shell: oc cp -n {{ namespace }} /tmp/db.dump {{ newpod.stdout }}:/tmp/db.dump
+
+  - name: Restore database
+    shell:  oc exec -n {{ namespace }} {{ newpod.stdout }} -- /bin/bash -c "mysql -h 127.0.0.1 -u {{ mysql_user }} -p{{ mysql_password }} {{ mysql_database }} < /tmp/db.dump"
+
+  - name: Remove old dc
+    openshift_v1_deployment_config:
+      name: "{{ olddc.stdout }}"
+      namespace: '{{ namespace }}'
+      state: absent
+
+  - name: ensure production volume is absent
+    k8s_v1_persistent_volume_claim:
+      name: "{{ service_name }}-{{ item }}-prod"
+      namespace: '{{ namespace }}'
+      access_modes:
+        - ReadWriteOnce
+      resources_requests:
+        storage: '{{ volume_size }}'
+      state: "absent"
+    with_items:
+      - "5.6"
+      - "5.7"
+    when: _apb_plan_id == "dev" or item != mysql_version
+  when: update is defined
 
 - name: encode bind credentials
   asb_encode_binding:
