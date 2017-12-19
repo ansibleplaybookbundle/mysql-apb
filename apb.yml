@@ -34,7 +34,7 @@ description: "Software Collections MySQL APB"
 bindable: true
 async: optional
 tags:
-  - databases
+  - database
   - mysql
 metadata:
   displayName: "MySQL (APB)"
