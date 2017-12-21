@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.1.1
+Version:	1.1.2
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
@@ -32,6 +32,10 @@ mv roles %{buildroot}/opt/ansible/roles
 /opt/ansible/roles
 
 %changelog
+* Thu Dec 21 2017 Jason Montleon <jmontleo@redhat.com> 1.1.2-1
+- add update functionality with data preservation (jmontleo@redhat.com)
+- Bug 1510804 - Change tag to database. (cchase@redhat.com)
+
 * Mon Dec 04 2017 Jason Montleon <jmontleo@redhat.com> 1.1.1-1
 - updates for repo and container name change (jmontleo@redhat.com)
 - update tags for FROM statement in Dockerfiles (jmontleo@redhat.com)
