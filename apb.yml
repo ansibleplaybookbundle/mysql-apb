@@ -5,6 +5,7 @@ _params: &_params
     description: The name of the service. Used to name and label resources
     type: string
     default: mysql
+    pattern: "^[a-zA-Z0-9]+[a-zA-Z0-9-]*[a-zA-Z0-9]+$"
     required: true
   - name: mysql_version
     description: Version of MySQL to deploy
@@ -17,11 +18,13 @@ _params: &_params
     description: The name of the MySQL database
     type: string
     default: devel
+    pattern: "^[a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*$"
     required: true
   - name: mysql_user
     description: Username that will be used to connect to MySQL
     type: string
     default: devel
+    pattern: "^[a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*$"
     required: true
   - name: mysql_password
     description: Password to connect to MySQL (generated if blank)
