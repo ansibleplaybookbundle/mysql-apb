@@ -29,7 +29,7 @@ _params: &_params
   - name: mysql_password
     description: Password to connect to MySQL (generated if blank)
     type: string
-    required: false
+    required: true
     display_type: password
 
 version: 1.0
