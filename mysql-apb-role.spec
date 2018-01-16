@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.1.3
+Version:	1.1.4
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
@@ -32,6 +32,9 @@ mv roles %{buildroot}/opt/ansible/roles
 /opt/ansible/roles
 
 %changelog
+* Tue Jan 16 2018 David Zager <david.j.zager@gmail.com> 1.1.4-1
+- Bug 1534514 require password (jmontleo@redhat.com)
+
 * Mon Jan 08 2018 David Zager <david.j.zager@gmail.com> 1.1.3-1
 - Update tito releasers (david.j.zager@gmail.com)
 - Bug 1472226 - Add pattern regex for UI validation (cchase@redhat.com)
