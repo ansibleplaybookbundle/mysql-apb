@@ -9,7 +9,7 @@
     register: olddc
 
   - name: Backup source database
-    shell:  oc exec -n {{ namespace }} {{ oldpod.stdout }} -- /bin/bash -c "mysqldump -h 127.0.0.1 -u {{ mysql_user }} -p{{ mysql_password }} {{ mysql_database }} > /tmp/db.dump"
+    shell:  oc exec -n {{ namespace }} {{ oldpod.stdout }} -- /bin/bash -c "mysqldump -u root --all-databases > /tmp/db.dump"
 
   - name: Copy over db backup
     shell: oc cp -n {{ namespace }} {{ oldpod.stdout }}:/tmp/db.dump /tmp/db.dump
@@ -53,7 +53,7 @@
     shell: oc cp -n {{ namespace }} /tmp/db.dump {{ newpod.stdout }}:/tmp/db.dump
 
   - name: Restore database
-    shell:  oc exec -n {{ namespace }} {{ newpod.stdout }} -- /bin/bash -c "mysql -h 127.0.0.1 -u {{ mysql_user }} -p{{ mysql_password }} {{ mysql_database }} < /tmp/db.dump"
+    shell:  oc exec -n {{ namespace }} {{ newpod.stdout }} -- /bin/bash -c "mysql -u root  < /tmp/db.dump"
 
   - name: Remove old dc
     openshift_v1_deployment_config:
