@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.1.4
+Version:	1.1.5
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
@@ -32,6 +32,9 @@ mv roles %{buildroot}/opt/ansible/roles
 /opt/ansible/roles
 
 %changelog
+* Fri Jan 26 2018 Jason Montleon <jmontleo@redhat.com> 1.1.5-1
+- Bug 1535931 - Save all databases (jmontleo@redhat.com)
+
 * Tue Jan 16 2018 David Zager <david.j.zager@gmail.com> 1.1.4-1
 - Bug 1534514 require password (jmontleo@redhat.com)
 
