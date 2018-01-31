@@ -49,31 +49,34 @@
     shell: oc get pods -n {{ namespace }} --show-all=false -l service={{ service_name }}-{{ mysql_version }}-{{ _apb_plan_id }} -o custom-columns=name:.metadata.name --no-headers
     register: newpod
 
-  - name: Copy over db backup
-    shell: oc cp -n {{ namespace }} /tmp/db.dump {{ newpod.stdout }}:/tmp/db.dump
 
-  - name: Restore database
-    shell:  oc exec -n {{ namespace }} {{ newpod.stdout }} -- /bin/bash -c "mysql -u root  < /tmp/db.dump"
+  - block:
+    - name: Copy over db backup
+      shell: oc cp -n {{ namespace }} /tmp/db.dump {{ newpod.stdout }}:/tmp/db.dump
 
-  - name: Remove old dc
-    openshift_v1_deployment_config:
-      name: "{{ olddc.stdout }}"
-      namespace: '{{ namespace }}'
-      state: absent
+    - name: Restore database
+      shell:  oc exec -n {{ namespace }} {{ newpod.stdout }} -- /bin/bash -c "mysql -u root  < /tmp/db.dump"
 
-  - name: ensure production volume is absent
-    k8s_v1_persistent_volume_claim:
-      name: "{{ service_name }}-{{ item }}-prod"
-      namespace: '{{ namespace }}'
-      access_modes:
-        - ReadWriteOnce
-      resources_requests:
-        storage: '{{ volume_size }}'
-      state: "absent"
-    with_items:
-      - "5.6"
-      - "5.7"
-    when: _apb_plan_id == "dev" or item != mysql_version
+    - name: Remove old dc
+      openshift_v1_deployment_config:
+        name: "{{ olddc.stdout }}"
+        namespace: '{{ namespace }}'
+        state: absent
+
+    - name: ensure production volume is absent
+      k8s_v1_persistent_volume_claim:
+        name: "{{ service_name }}-{{ item }}-prod"
+        namespace: '{{ namespace }}'
+        access_modes:
+          - ReadWriteOnce
+        resources_requests:
+          storage: '{{ volume_size }}'
+        state: "absent"
+      with_items:
+        - "5.6"
+        - "5.7"
+      when: _apb_plan_id == "dev" or item != mysql_version
+    when: newpod.stdout != oldpod.stdout
   when: update is defined
 
 - name: encode bind credentials
