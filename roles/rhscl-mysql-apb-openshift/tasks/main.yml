@@ -8,6 +8,34 @@
     shell: oc get dc -n {{ namespace }} -l app=rhscl-mysql-apb -o custom-columns=name:.metadata.name --no-headers
     register: olddc
 
+  - name: Prepare for downgrade
+    shell: |
+           oc exec -n {{ namespace }} {{ oldpod.stdout }} -- /bin/bash -c "mysql -u root -e \"
+           ALTER TABLE mysql.procs_priv MODIFY Grantor char(77) COLLATE utf8_bin NOT NULL DEFAULT '';
+           ALTER TABLE mysql.columns_priv MODIFY User char(16) NOT NULL default '';
+           ALTER TABLE mysql.user MODIFY User char(16) NOT NULL default '';
+           ALTER TABLE mysql.db MODIFY User char(16) NOT NULL default '';
+           ALTER TABLE mysql.procs_priv MODIFY User char(16) binary DEFAULT '' NOT NULL;
+           ALTER TABLE mysql.user ADD Password char(41) character set latin1 collate latin1_bin NOT NULL default '' AFTER user;
+           UPDATE mysql.user SET password = authentication_string WHERE LENGTH(authentication_string) = 41 AND plugin = 'mysql_native_password';
+           UPDATE mysql.user SET authentication_string = '' WHERE LENGTH(authentication_string) = 41 AND plugin = 'mysql_native_password';
+           ALTER TABLE mysql.help_category ENGINE='MyISAM' STATS_PERSISTENT=DEFAULT;
+           ALTER TABLE mysql.help_keyword ENGINE='MyISAM' STATS_PERSISTENT=DEFAULT;
+           ALTER TABLE mysql.help_relation ENGINE='MyISAM' STATS_PERSISTENT=DEFAULT;
+           ALTER TABLE mysql.help_topic ENGINE='MyISAM' STATS_PERSISTENT=DEFAULT;
+           ALTER TABLE mysql.time_zone ENGINE='MyISAM' STATS_PERSISTENT=DEFAULT;
+           ALTER TABLE mysql.time_zone_leap_second ENGINE='MyISAM' STATS_PERSISTENT=DEFAULT;
+           ALTER TABLE mysql.time_zone_name ENGINE='MyISAM' STATS_PERSISTENT=DEFAULT;
+           ALTER TABLE mysql.time_zone_transition  ENGINE='MyISAM' STATS_PERSISTENT=DEFAULT;
+           ALTER TABLE mysql.time_zone_transition_type ENGINE='MyISAM' STATS_PERSISTENT=DEFAULT;
+           ALTER TABLE mysql.plugin ENGINE='MyISAM' STATS_PERSISTENT=DEFAULT;
+           ALTER TABLE mysql.servers ENGINE='MyISAM' STATS_PERSISTENT=DEFAULT;
+           ALTER TABLE mysql.user MODIFY plugin CHAR(64) COLLATE utf8_bin DEFAULT 'mysql_native_password';
+           DROP DATABASE sys;\""
+    when:
+    - mysql_version == "5.6"
+    - not("5.6" in olddc.stdout)
+
   - name: Backup source database
     shell:  oc exec -n {{ namespace }} {{ oldpod.stdout }} -- /bin/bash -c "mysqldump -u root --all-databases > /tmp/db.dump"
 
@@ -53,7 +81,10 @@
     shell: oc cp -n {{ namespace }} /tmp/db.dump {{ newpod.stdout }}:/tmp/db.dump
 
   - name: Restore database
-    shell:  oc exec -n {{ namespace }} {{ newpod.stdout }} -- /bin/bash -c "mysql -u root  < /tmp/db.dump"
+    shell: oc exec -n {{ namespace }} {{ newpod.stdout }} -- /bin/bash -c "mysql -u root < /tmp/db.dump"
+
+  - name: Run mysql_upgrade
+    shell: oc exec -n {{ namespace }} {{ newpod.stdout }} -- /bin/bash -c "mysql_upgrade -u root"
 
   - name: Remove old dc
     openshift_v1_deployment_config:
