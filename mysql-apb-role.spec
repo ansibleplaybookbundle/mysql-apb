@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.1.8
+Version:	1.1.9
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
@@ -32,6 +32,10 @@ mv roles %{buildroot}/opt/ansible/roles
 /opt/ansible/roles
 
 %changelog
+* Thu Mar 01 2018 Jason Montleon <jmontleo@redhat.com> 1.1.9-1
+- Bug 1544606 - Use rsync to work around cp hanging (BZ1550644)
+  (jmontleo@redhat.com)
+
 * Wed Feb 28 2018 Jason Montleon <jmontleo@redhat.com> 1.1.8-1
 - Revert "Bug 1549019 - Work around connection upgrade issues with oc cp"
   (jmontleo@redhat.com)
