@@ -37,10 +37,10 @@
     - not("5.6" in olddc.stdout)
 
   - name: Create db backup directory
-    shell: oc exec -it -n {{ namespace }} {{ oldpod.stdout }} -- /bin/bash -c "mkdir /tmp/db"
+    shell: oc exec -it -n {{ namespace }} {{ oldpod.stdout }} -- /bin/bash -c "mkdir -p /tmp/db"
 
   - name: Backup source database
-    shell:  oc exec -it -n {{ namespace }} {{ oldpod.stdout }} -- /bin/bash -c "mysqldump -u root --all-databases > /tmp/db/dump"
+    shell: oc exec -it -n {{ namespace }} {{ oldpod.stdout }} -- /bin/bash -c "mysqldump -u root --all-databases > /tmp/db/dump"
 
   - name:  rsync db backup to apb
     shell: oc rsync -n {{ namespace }} {{ oldpod.stdout }}:/tmp/db /tmp
