@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.1.9
+Version:	1.1.10
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
@@ -32,6 +32,10 @@ mv roles %{buildroot}/opt/ansible/roles
 /opt/ansible/roles
 
 %changelog
+* Fri Mar 02 2018 Jason Montleon <jmontleo@redhat.com> 1.1.10-1
+- Bug 1544606 - Ensure subsequent updates do not fail because dir exists
+  (jmontleo@redhat.com)
+
 * Thu Mar 01 2018 Jason Montleon <jmontleo@redhat.com> 1.1.9-1
 - Bug 1544606 - Use rsync to work around cp hanging (BZ1550644)
   (jmontleo@redhat.com)
