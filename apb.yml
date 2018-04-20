@@ -1,36 +1,4 @@
 ---
-## Shared parameters
-_params: &_params
-  - name: service_name
-    description: The name of the service. Used to name and label resources
-    type: string
-    default: mysql
-    pattern: "^[a-zA-Z0-9]+[a-zA-Z0-9-]*[a-zA-Z0-9]+$"
-    required: true
-  - name: mysql_version
-    description: Version of MySQL to deploy
-    type: enum
-    enum: ["5.6", "5.7"]
-    default: "5.7"
-    required: true
-    updatable: true
-  - name: mysql_database
-    description: The name of the MySQL database
-    type: string
-    default: devel
-    pattern: "^[a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*$"
-    required: true
-  - name: mysql_user
-    description: Username that will be used to connect to MySQL
-    type: string
-    default: devel
-    pattern: "^[a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*$"
-    required: true
-  - name: mysql_password
-    description: Password to connect to MySQL (generated if blank)
-    type: string
-    required: true
-    display_type: password
 
 version: 1.0
 name: mysql-apb
@@ -60,7 +28,37 @@ plans:
       cost: $0.00
     updates_to:
       - prod
-    parameters: *_params
+    parameters:
+      - name: service_name
+        description: The name of the service. Used to name and label resources
+        type: string
+        default: mysql
+        pattern: "^[a-zA-Z0-9]+[a-zA-Z0-9-]*[a-zA-Z0-9]+$"
+        required: true
+      - name: mysql_version
+        description: Version of MySQL to deploy
+        type: enum
+        enum: ["5.6", "5.7"]
+        default: "5.7"
+        required: true
+        updatable: true
+      - name: mysql_database
+        description: The name of the MySQL database
+        type: string
+        default: devel
+        pattern: "^[a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*$"
+        required: true
+      - name: mysql_user
+        description: Username that will be used to connect to MySQL
+        type: string
+        default: devel
+        pattern: "^[a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*$"
+        required: true
+      - name: mysql_password
+        description: Password to connect to MySQL (generated if blank)
+        type: string
+        required: true
+        display_type: password
   - name: prod
     description: A MySQL server with persistent storage
     free: false
@@ -68,6 +66,42 @@ plans:
       displayName: Production
       longDescription: This plan provides a single non-HA MySQL server with 10 GiB of persistent storage
       cost: $5.99 monthly
-    parameters: *_params
+    parameters:
+      - name: service_name
+        description: The name of the service. Used to name and label resources
+        type: string
+        default: mysql
+        pattern: "^[a-zA-Z0-9]+[a-zA-Z0-9-]*[a-zA-Z0-9]+$"
+        required: true
+      - name: mysql_version
+        description: Version of MySQL to deploy
+        type: enum
+        enum: ["5.6", "5.7"]
+        default: "5.7"
+        required: true
+        updatable: true
+      - name: mysql_database
+        description: The name of the MySQL database
+        type: string
+        default: devel
+        pattern: "^[a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*$"
+        required: true
+      - name: mysql_user
+        description: Username that will be used to connect to MySQL
+        type: string
+        default: devel
+        pattern: "^[a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*$"
+        required: true
+      - name: mysql_password
+        description: Password to connect to MySQL (generated if blank)
+        type: string
+        required: true
+        display_type: password
+      - name: volume_size
+        type: enum
+        default: '1Gi'
+        enum: ['1Gi', '5Gi', '10Gi']
+        title: MySQL Volume Size
+        required: true
     updates_to:
       - dev
