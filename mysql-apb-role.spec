@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.2.1
+Version:	1.2.2
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
@@ -32,6 +32,9 @@ mv roles %{buildroot}/opt/ansible/roles
 /opt/ansible/roles
 
 %changelog
+* Thu Apr 19 2018 David Zager <david.j.zager@gmail.com> 1.2.2-1
+- Bug 1563641 - Specify PV Size (#30) (dzager@redhat.com)
+
 * Mon Apr 09 2018 David Zager <david.j.zager@gmail.com> 1.2.1-1
 - Bump version for 3.10 (david.j.zager@gmail.com)
 
