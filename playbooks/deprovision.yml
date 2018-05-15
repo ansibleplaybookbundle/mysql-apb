@@ -1,12 +1,9 @@
-- name: mysql-apb playbook to deprovision the application
+- name: mysql-apb deprovision
   hosts: localhost
   gather_facts: false
   connection: local
-  vars:
-    state: absent
   roles:
-  - role: ansible.kubernetes-modules
-    install_python_requirements: no
-  - role: ansibleplaybookbundle.asb-modules
-  - role: rhscl-mysql-apb-openshift
-    playbook_debug: false
+  - ansibleplaybookbundle.asb-modules
+  - mysql-apb
+  vars:
+    apb_action: deprovision

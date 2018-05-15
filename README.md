@@ -1,50 +1,34 @@
-mysql-apb
-===============
+[![Build
+Status](https://travis-ci.org/ansibleplaybookbundle/mysql-apb.svg?branch=master)](https://travis-ci.org/ansibleplaybookbundle/mysql-apb)
 
-An Ansible Playbook Bundle (APB) to deploy [MySQL](https://www.mysql.com).
+MySQL APB
+=========
 
-## What it does
-* It deploys a MySQL server using the
-  [Software Collections (SCL) image for MySQL](https://github.com/sclorg/mysql-container/)
+Ansible Role for installing (and uninstalling) [mysql](https://dev.mysql.com/)
+in a Kubernetes/OpenShift Cluster.
 
-## Requirements
-* N/A
+Requirements
+------------
 
-## Parameters
+- [openshift-restclient-python](https://github.com/openshift/openshift-restclient-python)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
-* mysql_database: MySQL database name (default: 'devel')
-* mysql_password: MySQL database password (default: randomly generated)
-* mysql_user: MySQL database username (default: 'devel')
-* mysql_version: MySQL version to deploy. 5.6 and 5.7 are available (default: '5.7')
-* volume_size: size of the PVC to request if persistent storage is requested (default: '10 Gi')
-* service_name: name of the service, used for names and labels of provisioned resources (default: 'mysql')
-* namespace: target namespace/project where resources will be provisioned (default: 'rhscl-mysql-apb')
+Role Variables
+--------------
 
-### Environment variables
+See [defaults/main.yaml](defaults/main.yaml).
 
-For convenience, the parameters above can be set/overriden via environment variables on the APB container. The environment variable names are the same in all upper case letters; for example, you can specify the `namespace` parameter via the `NAMESPACE` environment variable.
+Example Playbook
+----------------
 
-## Plans
+See [playbooks/provision.yml](playbooks/provision.yml).
 
-There are 2 plans available:
+License
+-------
 
-* Development (*dev*) (default): deploys a single MySQL server with ephemeral storage, i.e. no storage persistence: when the container stops its data is lost.
-* Production (*prod*'): deploys a singgle MySQL server with persistent storage. The storage is allocated via a Persistent Volume Claim of `volume_size`.
+Apache-2.0
 
-## Running the application
+Author Information
+------------------
 
-You need to provide the OpenShift API URL and authentication token, as well as the target namespace:
-
-    docker run --rm --net=host -v $HOME/.kube:/opt/apb/.kube:z -u $UID docker.io/ansibleplaybookbundle/mysql-apb provision
-
-You can pass additional parameters to `ansible-playbook` by adding them at the end; for example, you can request more verbose output with one or more `-v` and pass additional variables with `--extra-vars`.
-
-For example, this will request a *prod* plan and specify a custom database name and volume size:
-
-    docker run --rm --net=host -v $HOME/.kube:/opt/apb/.kube:z -u $UID docker.io/ansibleplaybookbundle/mysql-apb provision \
-       --extra-vars mysql_database=prod --extra-vars _apb_plan_id=prod --extra-vars volume_size=2Gi
-    
-
-## Tearing down the application
-
-    docker run --rm --net=host -v $HOME/.kube:/opt/apb/.kube:z -u $UID docker.io/ansibleplaybookbundle/mysql-apb deprovision
+http://automationbroker.io
