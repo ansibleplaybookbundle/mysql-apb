@@ -7,11 +7,11 @@
 Name:		mysql-apb-role
 Version:	1.2.2
 Release:	1%{build_timestamp}%{?dist}
-Summary:	Ansible Playbook for MariaDB APB
+Summary:	Ansible Playbook for MySQL DB APB
 
 License:	ASL 2.0
-URL:		https://github.com/ansibleplaybookbundle/RHSCL-MySQL-APB
-Source0:	https://github.com/ansibleplaybookbundle/RHSCL-MySQL-APB/archive/%{name}-%{version}.tar.gz
+URL:		https://github.com/ansibleplaybookbundle/mysql-apb
+Source0:	https://github.com/ansibleplaybookbundle/mysql-apb/archive/%{name}-%{version}.tar.gz
 BuildArch:  	noarch
 
 
@@ -22,9 +22,9 @@ BuildArch:  	noarch
 %setup -q -n %{name}-%{version}
 
 %install
-mkdir -p %{buildroot}/opt/apb/ %{buildroot}/opt/ansible/
+mkdir -p %{buildroot}/opt/apb/ %{buildroot}/opt/ansible/mysql-apb
 mv playbooks %{buildroot}/opt/apb/actions
-mv roles %{buildroot}/opt/ansible/roles
+mv defaults tasks templates vars %{buildroot}/opt/ansible/roles/mysql-apb
 
 %files
 %doc
