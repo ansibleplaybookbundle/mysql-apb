@@ -25,7 +25,7 @@ plans:
     metadata:
       displayName: Development
       longDescription:
-        This plan provides a single non-HA MySQL server without persistent storage
+        This plan provides a single non-HA MySQL server w/o persistent storage
       cost: $0.00
     updates_to:
       - prod

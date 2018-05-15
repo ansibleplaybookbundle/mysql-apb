@@ -1,0 +1,33 @@
+---
+services: docker
+sudo: required
+language: python
+python:
+  - '2.7'
+
+env:
+  - OPENSHIFT_VERSION=v3.9
+  - OPENSHIFT_VERSION=v3.10
+  - KUBERNETES_VERSION=v1.9.0
+  - KUBERNETES_VERSION=v1.10.0
+# Allow failures on oc latest
+# TODO: re-enable latest when it isn't busted
+matrix:
+  allow_failures:
+    - env: OPENSHIFT_VERSION=v3.10
+    - env: KUBERNETES_VERSION=v1.10.0
+
+script:
+  # Configure test values
+  - export apb_name='mysql-apb'
+  - export dockerfile='Dockerfile-canary'
+
+  # Download test shim.
+  - wget -O ${PWD}/apb-test.sh https://raw.githubusercontent.com/ansibleplaybookbundle/apb-test-shim/master/apb-test.sh
+  - chmod +x ${PWD}/apb-test.sh
+
+  # Run tests.
+  - ${PWD}/apb-test.sh
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
