@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.2.3
+Version:	1.2.4
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MySQL DB APB
 
@@ -32,6 +32,9 @@ mv defaults tasks templates vars %{buildroot}/opt/ansible/roles/mysql-apb
 /opt/ansible/roles
 
 %changelog
+* Thu May 17 2018 David Zager <david.j.zager@gmail.com> 1.2.4-1
+- Create the roles directory (#32) (dzager@redhat.com)
+
 * Thu May 17 2018 David Zager <david.j.zager@gmail.com> 1.2.3-1
 - Bug 1570603: Make mysql-apb (de)provision idempotent (#31)
   (dzager@redhat.com)
