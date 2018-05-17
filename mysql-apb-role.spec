@@ -22,7 +22,7 @@ BuildArch:  	noarch
 %setup -q -n %{name}-%{version}
 
 %install
-mkdir -p %{buildroot}/opt/apb/ %{buildroot}/opt/ansible/mysql-apb
+mkdir -p %{buildroot}/opt/apb/ %{buildroot}/opt/ansible/roles/mysql-apb
 mv playbooks %{buildroot}/opt/apb/actions
 mv defaults tasks templates vars %{buildroot}/opt/ansible/roles/mysql-apb
 
