@@ -1,0 +1,20 @@
+---
+
+# Defaults for values we could expect from a broker
+_apb_plan_id: default
+_apb_service_class_id: 0
+_apb_service_instance_id: 0
+
+# TODO:
+#  - centos vs rhel
+#  - reference standard image streams?
+app_name: "mysql-{{ _apb_service_instance_id }}"
+app_image: "registry.access.redhat.com/rhscl/mysql-{{ mysql_version | replace('.', '')}}-rhel7"
+namespace: "{{ lookup('env','NAMESPACE') | default('mediawiki', true) }}"
+
+mysql_port: 3306
+mysql_database: devel
+mysql_user: devel
+mysql_password: changeme
+mysql_version: '5.7'
+mysql_volume_size: 1Gi
