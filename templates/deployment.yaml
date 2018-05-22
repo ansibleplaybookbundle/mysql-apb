@@ -58,7 +58,11 @@ spec:
             - name: MYSQL_DATABASE
               value: {{ mysql_database }}
           livenessProbe:
+{% if ansible_version.full is version('2.6', '>=') %}
+            exec:
+{% else %}
             _exec:
+{% endif %}
               command:
                 - "/bin/sh"
                 - "-i"
@@ -68,7 +72,11 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
           readinessProbe:
+{% if ansible_version.full is version('2.6', '>=') %}
+            exec:
+{% else %}
             _exec:
+{% endif %}
               command:
                 - "/bin/sh"
                 - "-i"
