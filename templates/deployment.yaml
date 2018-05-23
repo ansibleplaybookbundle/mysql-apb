@@ -99,5 +99,5 @@ spec:
             claimName: {{ app_name }}
 {% else %}
         - name: mysql
-          emptyDir: []
+          emptyDir: {}
 {% endif %}
