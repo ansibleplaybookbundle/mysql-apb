@@ -99,7 +99,7 @@
       shell: oc exec -it -n {{ namespace }} {{ app_pod_name }} -- /bin/bash -c "mysql -u root < /tmp/db/dump"
 
     - name: Run mysql_upgrade
-      shell: oc exec -it -n {{ namespace }} {{ app_pod_name }} -- /bin/bash -c "mysql_upgrade -u root"
+      shell: oc exec -it -n {{ namespace }} {{ app_pod_name }} -- /bin/bash -c "mysql_upgrade -u root --force"
 
     - name: "Update last operation"
       asb_last_operation:
