@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.1.10
+Version:	1.1.11
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MariaDB APB
 
@@ -32,6 +32,10 @@ mv roles %{buildroot}/opt/ansible/roles
 /opt/ansible/roles
 
 %changelog
+* Thu May 31 2018 Jason Montleon <jmontleo@redhat.com> 1.1.11-1
+- run mysql_upgrade with --force to make 5.7.21 happy (#35)
+  (jmontleo@redhat.com)
+
 * Fri Mar 02 2018 Jason Montleon <jmontleo@redhat.com> 1.1.10-1
 - Bug 1544606 - Ensure subsequent updates do not fail because dir exists
   (jmontleo@redhat.com)
