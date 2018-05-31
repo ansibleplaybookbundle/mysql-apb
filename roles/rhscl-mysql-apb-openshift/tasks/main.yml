@@ -87,7 +87,7 @@
     shell: oc exec -it -n {{ namespace }} {{ newpod.stdout }} -- /bin/bash -c "mysql -u root < /tmp/db/dump"
 
   - name: Run mysql_upgrade
-    shell: oc exec -it -n {{ namespace }} {{ newpod.stdout }} -- /bin/bash -c "mysql_upgrade -u root"
+    shell: oc exec -it -n {{ namespace }} {{ newpod.stdout }} -- /bin/bash -c "mysql_upgrade -u root --force"
 
   - name: Remove old dc
     openshift_v1_deployment_config:
