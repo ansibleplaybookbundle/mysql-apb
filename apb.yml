@@ -1,6 +1,6 @@
 ---
 
-version: 1.0
+version: 1.0.0
 name: mysql-apb
 description: "Software Collections MySQL APB"
 bindable: true
