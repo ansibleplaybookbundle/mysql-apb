@@ -1,0 +1,32 @@
+diff --git a/apb.yml b/apb.yml
+index 22dacbc..8c2dba6 100644
+--- a/apb.yml
++++ b/apb.yml
+@@ -14,8 +14,8 @@ metadata:
+   console.openshift.io/iconClass: icon-mysql-database
+   documentationUrl: "https://github.com/sclorg/mysql-container/"
+   dependencies:
+-    - 'docker.io/centos/mysql-56-centos7'
+-    - 'docker.io/centos/mysql-57-centos7'
++    - 'registry.redhat.io/rhscl/mysql-56-rhel7'
++    - 'registry.redhat.io/rhscl/mysql-57-rhel7'
+   providerDisplayName: "Red Hat, Inc."
+ plans:
+   - name: dev
+diff --git a/defaults/main.yml b/defaults/main.yml
+index c95a661..566895f 100644
+--- a/defaults/main.yml
++++ b/defaults/main.yml
+@@ -6,9 +6,9 @@ _apb_service_class_id: 0
+ _apb_service_instance_id: 0
+ 
+ app_name: "mysql-{{ _apb_service_instance_id }}"
+-registry_url: docker.io
+-registry_org: centos
+-image_version: centos7
++registry_url: registry.redhat.io
++registry_org: rhscl
++image_version: rhel7
+ app_image: "{{ registry_url }}/{{ registry_org }}/mysql-{{ mysql_version | replace('.', '')}}-{{ image_version }}"
+ namespace: "{{ lookup('env','NAMESPACE') | default('mediawiki', true) }}"
+ 

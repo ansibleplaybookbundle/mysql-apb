@@ -14,8 +14,8 @@ metadata:
   console.openshift.io/iconClass: icon-mysql-database
   documentationUrl: "https://github.com/sclorg/mysql-container/"
   dependencies:
-    - 'registry.access.redhat.com/rhscl/mysql-56-rhel7'
-    - 'registry.access.redhat.com/rhscl/mysql-57-rhel7'
+    - 'docker.io/centos/mysql-56-centos7'
+    - 'docker.io/centos/mysql-57-centos7'
   providerDisplayName: "Red Hat, Inc."
 plans:
   - name: dev

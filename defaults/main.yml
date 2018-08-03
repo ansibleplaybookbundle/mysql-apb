@@ -5,11 +5,11 @@ _apb_plan_id: default
 _apb_service_class_id: 0
 _apb_service_instance_id: 0
 
-# TODO:
-#  - centos vs rhel
-#  - reference standard image streams?
 app_name: "mysql-{{ _apb_service_instance_id }}"
-app_image: "registry.access.redhat.com/rhscl/mysql-{{ mysql_version | replace('.', '')}}-rhel7"
+registry_url: docker.io
+registry_org: centos
+image_version: centos7
+app_image: "{{ registry_url }}/{{ registry_org }}/mysql-{{ mysql_version | replace('.', '')}}-{{ image_version }}"
 namespace: "{{ lookup('env','NAMESPACE') | default('mediawiki', true) }}"
 
 mysql_port: 3306
