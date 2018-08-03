@@ -20,6 +20,9 @@ BuildArch:  	noarch
 
 %prep
 %setup -q -n %{name}-%{version}
+%if !0%{?copr}
+patch -p1 < downstream.patch
+%endif
 
 %install
 mkdir -p %{buildroot}/opt/apb/ %{buildroot}/opt/ansible/roles/mysql-apb
