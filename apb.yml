@@ -14,7 +14,6 @@ metadata:
   console.openshift.io/iconClass: icon-mysql-database
   documentationUrl: "https://github.com/sclorg/mysql-container/"
   dependencies:
-    - 'docker.io/centos/mysql-56-centos7'
     - 'docker.io/centos/mysql-57-centos7'
   providerDisplayName: "Red Hat, Inc."
 plans:
@@ -33,7 +32,7 @@ plans:
       - name: mysql_version
         description: Version of MySQL to deploy
         type: enum
-        enum: ["5.6", "5.7"]
+        enum: ["5.7"]
         default: "5.7"
         required: true
         updatable: true
@@ -66,7 +65,7 @@ plans:
       - name: mysql_version
         description: Version of MySQL to deploy
         type: enum
-        enum: ["5.6", "5.7"]
+        enum: ["5.7"]
         default: "5.7"
         required: true
         updatable: true

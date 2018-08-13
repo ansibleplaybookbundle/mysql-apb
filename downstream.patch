@@ -2,13 +2,11 @@ diff --git a/apb.yml b/apb.yml
 index 22dacbc..8c2dba6 100644
 --- a/apb.yml
 +++ b/apb.yml
-@@ -14,8 +14,8 @@ metadata:
+@@ -14,7 +14,7 @@ metadata:
    console.openshift.io/iconClass: icon-mysql-database
    documentationUrl: "https://github.com/sclorg/mysql-container/"
    dependencies:
--    - 'docker.io/centos/mysql-56-centos7'
 -    - 'docker.io/centos/mysql-57-centos7'
-+    - 'registry.redhat.io/rhscl/mysql-56-rhel7'
 +    - 'registry.redhat.io/rhscl/mysql-57-rhel7'
    providerDisplayName: "Red Hat, Inc."
  plans:
