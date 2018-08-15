@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.3.3
+Version:	1.3.4
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MySQL DB APB
 
@@ -35,6 +35,10 @@ mv defaults tasks templates vars %{buildroot}/opt/ansible/roles/mysql-apb
 /opt/ansible/roles
 
 %changelog
+* Wed Aug 15 2018 David Zager <david.j.zager@gmail.com> 1.3.4-1
+- Remove deprecated application container versions (#44) (jmontleo@redhat.com)
+- Remove asb-module dependency (david.j.zager@gmail.com)
+
 * Mon Aug 06 2018 David Zager <david.j.zager@gmail.com> 1.3.3-1
 - Bug 1612793 - Use pvc.yaml.j2 since they are jinja (david.j.zager@gmail.com)
 - Bug 1611939 - Create PVC for prod plans (david.j.zager@gmail.com)
