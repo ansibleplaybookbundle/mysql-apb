@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.3.4
+Version:	1.3.5
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MySQL DB APB
 
@@ -35,6 +35,10 @@ mv defaults tasks templates vars %{buildroot}/opt/ansible/roles/mysql-apb
 /opt/ansible/roles
 
 %changelog
+* Thu Aug 30 2018 Dylan Murray <dymurray@redhat.com> 1.3.5-1
+- Bug 1584104 - No TTY (#45) (dzager@redhat.com)
+- Check for capabilities instead of openshift (jmontleo@redhat.com)
+
 * Wed Aug 15 2018 David Zager <david.j.zager@gmail.com> 1.3.4-1
 - Remove deprecated application container versions (#44) (jmontleo@redhat.com)
 - Remove asb-module dependency (david.j.zager@gmail.com)
