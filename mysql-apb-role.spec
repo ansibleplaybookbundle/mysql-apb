@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.3.6
+Version:	1.4.0
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MySQL DB APB
 
