@@ -5,7 +5,7 @@
 %endif
 
 Name:		mysql-apb-role
-Version:	1.3.6
+Version:	1.3.7
 Release:	1%{build_timestamp}%{?dist}
 Summary:	Ansible Playbook for MySQL DB APB
 
@@ -35,6 +35,9 @@ mv defaults tasks templates vars %{buildroot}/opt/ansible/roles/mysql-apb
 /opt/ansible/roles
 
 %changelog
+* Fri Sep 14 2018 jesus m. rodriguez <jmrodri@gmail.com> 1.3.7-1
+- Set apb version in to 1.0 to be compatible with old brokers (jmontleo@redhat.com)
+
 * Tue Sep 04 2018 Dylan Murray <dymurray@redhat.com> 1.3.6-1
 - Bug 1625161 - Typecast namespace to string (#47) (dymurray@redhat.com)
 
